@@ -9,13 +9,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        val btnSensor = findViewById<Button>(R.id.btn_sensors)
-
-        btnSensor.setOnClickListener {
-            startActivity(Intent(this,SensorActivity::class.java))
-        }
-
     }
 }

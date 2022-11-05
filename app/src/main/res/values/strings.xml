@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">HW2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sensor_not_active">این سنسور برای گوشی شما غیر فعال است. </string>
 </resources>
