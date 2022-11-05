@@ -1,5 +1,6 @@
 package com.example.hw2
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,8 +22,13 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val btnSensor = activity?.findViewById<Button>(R.id.btn_sensors)
+        val btnGame = activity?.findViewById<Button>(R.id.btn_game)
         btnSensor!!.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_sensorFragment)
+        }
+
+        btnGame?.setOnClickListener {
+            startActivity(Intent(activity,SimpleGameActivity::class.java))
         }
     }
 }

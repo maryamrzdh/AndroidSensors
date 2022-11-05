@@ -32,7 +32,7 @@
 
         <argument
             android:name="sensorType"
-            app:argType="string"
+            app:argType="integer"
             />
 
     </fragment>

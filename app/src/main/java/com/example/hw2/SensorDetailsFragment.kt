@@ -33,7 +33,7 @@ class SensorDetailsFragment :  BaseFragment() , SensorEventListener {
         tv = view.findViewById(R.id.tv_sensor_desc)
 
         when(args.sensorType){
-            "light" ->sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
+            Sensor.TYPE_LIGHT ->sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
 
         }
 
