@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="light"
+            android:text="@string/light_switch"
             tools:ignore="UseSwitchCompatOrMaterialXml"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="16dp" />
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Switch"
+            android:text="@string/vicinity_switch"
             tools:ignore="UseSwitchCompatOrMaterialXml"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="16dp" />
