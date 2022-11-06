@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.fragment.findNavController
+import com.example.karlveskus.ballgame.SimpleGameActivity
 
 class MainFragment : BaseFragment() {
 

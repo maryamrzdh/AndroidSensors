@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.hw2.SimpleGameActivity"
+    tools:context="com.example.karlveskus.ballgame.SimpleGameActivity"
     android:clickable="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
