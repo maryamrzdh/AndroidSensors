@@ -4,4 +4,11 @@
     <string name="light_switch">سنسور نور</string>
     <string name="vicinity_switch">سنسور مجاورت</string>
     <string name="sensor_not_active">این سنسور برای گوشی شما غیر فعال است. </string>
+    <string name="start">start</string>
+    <string name="end">end</string>
+    <string name="max_speed">Max Speed : </string>
+    <string name="average_speed">Average Speed : </string>
+    <string name="distance">Distance : </string>
+    <string name="time">Time : </string>
+    <string name="accuracy">Accuracy : </string>
 </resources>

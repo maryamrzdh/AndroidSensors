@@ -2,7 +2,6 @@ package com.example.hw2
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,20 +15,29 @@ class MainFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val btnSensor = activity?.findViewById<Button>(R.id.btn_sensors)
-        val btnGame = activity?.findViewById<Button>(R.id.btn_game)
-        btnSensor!!.setOnClickListener {
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
+
+        val btnSensor = view.findViewById<Button>(R.id.btn_sensors)
+        val btnGame = view.findViewById<Button>(R.id.btn_game)
+        val btnStepCounter = view.findViewById<Button>(R.id.btn_step_counter)
+        val btnSpeedometer = view.findViewById<Button>(R.id.btn_speedometer)
+
+        btnSensor.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_sensorFragment)
         }
 
-        btnGame?.setOnClickListener {
+        btnGame.setOnClickListener {
             startActivity(Intent(activity,SimpleGameActivity::class.java))
         }
+
+        btnStepCounter.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_stepCounterFragment)
+        }
+
+        btnSpeedometer.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_speedometerFragment)
+        }
+        return view
     }
 }

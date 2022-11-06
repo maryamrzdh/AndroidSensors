@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sensors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,29 +16,37 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="47dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:text="simple game"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sensors"
-        tools:layout_editor_absoluteX="64dp" />
+        android:layout_marginTop="128dp"
+        android:background="@drawable/btn_shape"
+        android:text="Simple Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sensors" />
 
-    <Button
-        android:id="@+id/button3"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_step_counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintTop_toBottomOf="@+id/btn_game"
-        tools:layout_editor_absoluteX="145dp" />
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_shape"
+        android:text="Step Calculator"
+        app:layout_constraintEnd_toEndOf="@+id/btn_game"
+        app:layout_constraintStart_toStartOf="@+id/btn_game"
+        app:layout_constraintTop_toBottomOf="@+id/btn_game" />
 
-    <Button
-        android:id="@+id/button4"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_speedometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        tools:layout_editor_absoluteX="147dp" />
+        android:layout_marginTop="32dp"
+        android:background="@drawable/btn_shape"
+        android:text="Speedometer"
+        app:layout_constraintEnd_toEndOf="@+id/btn_game"
+        app:layout_constraintStart_toStartOf="@+id/btn_game"
+        app:layout_constraintTop_toBottomOf="@+id/btn_step_counter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

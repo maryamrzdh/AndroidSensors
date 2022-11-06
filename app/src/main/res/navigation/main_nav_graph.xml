@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_mainFragment_to_sensorFragment"
             app:destination="@id/sensorFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_stepCounterFragment"
+            app:destination="@id/stepCounterFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_speedometerFragment"
+            app:destination="@id/speedometerFragment" />
     </fragment>
     <fragment
         android:id="@+id/sensorFragment"
@@ -36,4 +42,14 @@
             />
 
     </fragment>
+    <fragment
+        android:id="@+id/stepCounterFragment"
+        tools:layout="@layout/fragment_step_counter"
+        android:name="com.example.hw2.StepCounterFragment"
+        android:label="StepCounterFragment" />
+    <fragment
+        android:id="@+id/speedometerFragment"
+        android:name="com.example.hw2.SpeedometerFragment"
+        android:label="fragment_speedometer"
+        tools:layout="@layout/fragment_speedometer" />
 </navigation>
