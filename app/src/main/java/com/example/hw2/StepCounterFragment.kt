@@ -1,6 +1,7 @@
 package com.example.hw2
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 
 class StepCounterFragment : Fragment(), SensorEventListener {
 
@@ -54,7 +56,10 @@ class StepCounterFragment : Fragment(), SensorEventListener {
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         btnStart.setOnClickListener {
-            btnEnd.visibility = View.GONE
+            btnStart.visibility = View.GONE
+            btnEnd.visibility = View.VISIBLE
+
+            startService(view)
 
             if (stepSensor == null) {
                 // This will give a toast message to the user if there is no sensor in the device
@@ -66,16 +71,16 @@ class StepCounterFragment : Fragment(), SensorEventListener {
         }
 
         btnEnd.setOnClickListener {
-            btnStart.visibility = View.GONE
+            btnEnd.visibility = View.GONE
+            btnStart.visibility = View.VISIBLE
 
             sensorManager?.unregisterListener(this)
 
+            stopMyService(view)
         }
 
         loadData()
         resetSteps()
-
-
 
 
         return view
@@ -149,5 +154,16 @@ class StepCounterFragment : Fragment(), SensorEventListener {
         Log.d("StepCounter", "$savedNumber")
 
         previousTotalSteps = savedNumber
+    }
+
+    fun startService(view: View) {
+        val input: String = tvStepsTaken.text.toString()
+        val serviceIntent = Intent(requireActivity(), StepCounterService::class.java)
+        serviceIntent.putExtra("inputExtra", "your step count is $input")
+        ContextCompat.startForegroundService(requireContext(), serviceIntent)
+    }
+    fun stopMyService(view: View) {
+        val serviceIntent = Intent(requireActivity(), StepCounterService::class.java)
+        requireActivity().stopService(serviceIntent)
     }
 }
