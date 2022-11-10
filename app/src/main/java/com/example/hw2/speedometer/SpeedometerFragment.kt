@@ -10,8 +10,12 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.hw2.BaseFragment
 import com.example.hw2.R
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class SpeedometerFragment : BaseFragment() {
 
@@ -69,6 +73,28 @@ class SpeedometerFragment : BaseFragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launch{
+            viewModel.currentSpeed.collect {
+                tvSpeed.text = (it)
+            }
+        }
+
+        lifecycleScope.launch{
+            viewModel.maxSpeedState.collect {
+                tvMaxSpeed.text = (it)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.time.collect {
+                tvTime.text = (it)
+            }
+        }
+    }
+
     private fun clearForm(){
         tvSpeed.text = ""
         tvMaxSpeed.text = ""
@@ -78,8 +104,15 @@ class SpeedometerFragment : BaseFragment() {
         tvAccuracy.text = ""
     }
 
-    override fun onPause() {
-        super.onPause()
+//    override fun onResume() {
+//        super.onResume()
+//        if (sensor != null )
+//            sensorManager?.registerListener(viewModel, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+//    }
+
+    override fun onDetach() {
+        super.onDetach()
         sensorManager?.unregisterListener(viewModel)
     }
+
 }

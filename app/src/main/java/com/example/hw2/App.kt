@@ -13,13 +13,13 @@ class App:Application() {
 
         context = this
 
-        val pref: SharedPreferences = applicationContext.getSharedPreferences("MyPref", Context.MODE_PRIVATE)
-        editor = pref.edit()
+        sharedPreferences = applicationContext.getSharedPreferences("MyPref", Context.MODE_PRIVATE)
+        editor = sharedPreferences?.edit()!!
     }
 
     companion object{
 
-         private var sharedPreferences : SharedPreferences? = null
+        private var sharedPreferences : SharedPreferences? = null
         lateinit var editor : SharedPreferences.Editor
 
         fun saveShay(key: String, value: Float) {

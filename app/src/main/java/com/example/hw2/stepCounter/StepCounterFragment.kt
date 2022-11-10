@@ -12,9 +12,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.hw2.BaseFragment
 import com.example.hw2.R
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
 class StepCounterFragment : BaseFragment() {
 
@@ -25,9 +26,7 @@ class StepCounterFragment : BaseFragment() {
 
     // Creating a variable which will give the running status
     // and initially given the boolean value as false
-    private var running = false
-
-
+//    private var running = false
 
     private lateinit var btnEnd : Button
     private lateinit var btnStart : Button
@@ -63,7 +62,7 @@ class StepCounterFragment : BaseFragment() {
             }
         }
 
-//        loadData()
+        viewModel.loadData()
         resetSteps()
 
         return view
@@ -72,18 +71,19 @@ class StepCounterFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.stepCount.onEach {
-            //
-           // It will show the current steps to the user
-            tvStepsTaken.text = ("$it")
+        lifecycleScope.launch {
+            viewModel.stepCount.collect {
+                tvStepsTaken.text = ("$it")
+            }
         }
     }
-    override fun onResume() {
-        super.onResume()
-        running = true
-        // Returns the number of steps taken by the user since the last reboot while activated
-        // This sensor requires permission android.permission.ACTIVITY_RECOGNITION.
-    }
+
+//    override fun onResume() {
+//        super.onResume()
+////        running = true
+////        if (sensor!=null)
+////            sensorManager?.registerListener(viewModel, sensor, SensorManager.SENSOR_DELAY_UI)
+//    }
 
     private fun resetSteps() {
         btnEnd.setOnClickListener {
@@ -94,7 +94,6 @@ class StepCounterFragment : BaseFragment() {
             btnEnd.visibility = View.GONE
             btnStart.visibility = View.VISIBLE
 
-// TODO:
 //            previousTotalSteps = totalSteps
 
             // When the user will click long tap on the screen,
@@ -102,7 +101,7 @@ class StepCounterFragment : BaseFragment() {
             tvStepsTaken.text = 0.toString()
 
             // This will save the data
-//            saveData()
+            viewModel.saveData()
 
             sensorManager?.unregisterListener(viewModel)
 
@@ -111,25 +110,6 @@ class StepCounterFragment : BaseFragment() {
             true
         }
     }
-
-//    private fun saveData() {
-//
-//        // Shared Preferences will allow us to save
-//        // and retrieve data in the form of key,value pair.
-//        // In this function we will save data
-//        App.saveShay("key1" , previousTotalSteps)
-//    }
-//
-//    private fun loadData() {
-//
-//        // In this function we will retrieve data
-//        val savedNumber = App.loadShay("key1",0f)
-//
-//        // Log.d is used for debugging purposes
-//        Log.d("StepCounter", "$savedNumber")
-//
-//        previousTotalSteps = savedNumber
-//    }
 
     private fun startService() {
         val input: String = tvStepsTaken.text.toString()
@@ -143,8 +123,8 @@ class StepCounterFragment : BaseFragment() {
         requireActivity().stopService(serviceIntent)
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDetach() {
+        super.onDetach()
         sensorManager?.unregisterListener(viewModel)
     }
 }
