@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/sensorFragment"
-        android:name="com.example.hw2.SensorFragment"
+        android:name="com.example.hw2.sensors.SensorFragment"
         android:label="fragment_sensor"
         tools:layout="@layout/fragment_sensor" >
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/sensorDetailsFragment"
-        android:name="com.example.hw2.SensorDetailsFragment"
+        android:name="com.example.hw2.sensors.SensorDetailsFragment"
         android:label="fragment_sensor_details"
         tools:layout="@layout/fragment_sensor_details" >
 
@@ -45,11 +45,11 @@
     <fragment
         android:id="@+id/stepCounterFragment"
         tools:layout="@layout/fragment_step_counter"
-        android:name="com.example.hw2.StepCounterFragment"
+        android:name="com.example.hw2.stepCounter.StepCounterFragment"
         android:label="StepCounterFragment" />
     <fragment
         android:id="@+id/speedometerFragment"
-        android:name="com.example.hw2.SpeedometerFragment"
+        android:name="com.example.hw2.speedometer.SpeedometerFragment"
         android:label="fragment_speedometer"
         tools:layout="@layout/fragment_speedometer" />
 </navigation>

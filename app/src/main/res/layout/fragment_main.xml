@@ -1,36 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_sensors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:background="@drawable/btn_shape"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="47dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="80dp"
+            android:text="By: Sara Amiri"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sensors"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_shape"
+            android:text="Sensors"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/btn_shape"
         android:text="Simple Game"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sensors" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_step_counter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_shape"
         android:text="Step Calculator"
@@ -40,13 +73,18 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_speedometer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/btn_shape"
         android:text="Speedometer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_game"
         app:layout_constraintStart_toStartOf="@+id/btn_game"
-        app:layout_constraintTop_toBottomOf="@+id/btn_step_counter" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_step_counter"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

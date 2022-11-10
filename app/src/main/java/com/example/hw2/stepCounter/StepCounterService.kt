@@ -1,4 +1,4 @@
-package com.example.hw2
+package com.example.hw2.stepCounter
 
 import android.app.*
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.hw2.MainActivity
 
 class StepCounterService : Service() {
     private val channelId = "Notification from Service"

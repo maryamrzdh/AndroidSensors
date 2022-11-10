@@ -1,11 +1,30 @@
 <resources>
     <string name="app_name">HW2</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="light_switch">سنسور نور</string>
     <string name="vicinity_switch">سنسور مجاورت</string>
     <string name="sensor_not_active">این سنسور برای گوشی شما غیر فعال است. </string>
     <string name="start">start</string>
     <string name="end">end</string>
+    <string name="back">back</string>
+
+    <string name="Gyroscope">ژِیروسکوپ</string>
+    <string name="Acceleration">شتاب سنج</string>
+    <string name="Magnetic">مغناطیس سنج</string>
+    <string name="light">روشنایی</string>
+    <string name="Orientation">جهت یاب</string>
+    <string name="thermometer">دما سنج</string>
+    <string name="Proximity">مجاورت</string>
+
+    <string name="Gyroscope_desc">ژیروسکوپ اطلاعاتی در مورد چرخش دستگاه در تمام محورها اضافه می‌کند.ترکیب کردن این داده‌ها با داده‌های شتاب‌سنج و سایر سنسورها، اطلاعات بسیار دقیقی را در مورد مکان قرارگیری گوشی و حرکت یا چرخش آن روی هر محوری ارائه می‌دهد.</string>
+    <string name="Acceleration_desc">شتاب را در سه محور x و y و z اندازه گیری می کند. لذا تلفن هوشمند شما می تواند حرکت در هر یک از سه محور را حس کرده و جهت را از عمودی به افقی یا برعکس تغییر دهد و تجربه کاربری بهتری را فراهم می آورد.</string>
+    <string name="Magnetic_desc">حس‌گر مغناطیسی به حس‌گری اطلاق می‌شود که اندازه و میزان تغییرات میدان مغناطیسی را به سیگنال‌های الکترونیکی تبدیل می‌کند.</string>
+    <string name="light_desc">نور محیط توسط این حسگر شناسایی شده و اندازه‌گیری می‌شود. این حسگر نور صفحه نمایش را طبق نور محیط تنظیم می‌کند.</string>
+    <string name="Orientation_desc">برای اندازه‌گیری میزان قوی بودن و جهت میدان‌های مغناطیسی و در نتیجه یافتن جهت‌های جغرافیایی مانند شمال و جنوب استفاده می‌شود. با یافتن میدان‌های مغناطیسی زمین، جهت‌گیری تلفن همراه نیز بهینه‌تر و درست‌تر خواهد شد.</string>
+    <string name="thermometer_desc">می تواند دمای متغیر محیط، رطوبت نسبی و میزان فشار هوا را برایتان به نمایش در آورد.</string>
+    <string name="Proximity_desc">یک حسگر مجاورت گوشی زمان نزدیک شدن هر شیء به گوشی بدون نیاز به تماس فیزیکی کار می‌کند. اگر این حسگر چیزی را در مجاورت گوشی تشخیص دهد یا حتی ندهد، براساس آن یک قابلیت داخلی خودکار فعال خواهد شد.</string>
+
+
+
     <string name="max_speed">Max Speed : </string>
     <string name="average_speed">Average Speed : </string>
     <string name="distance">Distance : </string>

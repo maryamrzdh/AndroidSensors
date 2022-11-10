@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SensorFragment">
+    android:layout_margin="24dp"
+    tools:context=".sensors.SensorFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="@string/light_switch"
+            android:layout_margin="4dp"
             tools:ignore="UseSwitchCompatOrMaterialXml"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="16dp" />
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="@string/vicinity_switch"
+            android:layout_margin="4dp"
             tools:ignore="UseSwitchCompatOrMaterialXml"
             tools:layout_editor_absoluteX="36dp"
             tools:layout_editor_absoluteY="16dp" />
@@ -43,6 +46,7 @@
         android:id="@+id/rv_sensors"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
