@@ -39,8 +39,6 @@ class SensorDetailsFragment :  BaseFragment() , SensorEventListener {
         getSensor(args.sensorType)
 
         if (sensor!=null) {
-            sensorManager?.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
-
             tvTitle.text = sensor?.getSensorName(requireContext())
             tvDesc.text = sensor?.getSensorDesc(requireContext())
         }
@@ -53,12 +51,7 @@ class SensorDetailsFragment :  BaseFragment() , SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        // TODO:
-        if (event?.sensor?.type == Sensor.TYPE_LIGHT) {
-            val light1 = event.values[0]
-
-            tvValue.text = light1.toString()
-        }
+        tvValue.text = event?.values?.get(0).toString()
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
@@ -66,5 +59,12 @@ class SensorDetailsFragment :  BaseFragment() , SensorEventListener {
     override fun onPause() {
         super.onPause()
         sensorManager?.unregisterListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (sensor != null) {
+            sensorManager?.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
+        }
     }
 }

@@ -9,6 +9,7 @@ import android.hardware.SensorManager
 import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +55,10 @@ class SensorFragment : BaseFragment(),
                 if (isChecked){
                     proximitySwitch.isChecked = false
                     sensorManager?.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL)
-                }else
+                }else {
+                    turnOff()
                     sensorManager?.unregisterListener(this)
+                }
             }
             else
                 Toast.makeText(requireContext(), "No light sensor detected on this device", Toast.LENGTH_SHORT).show()
@@ -70,8 +73,10 @@ class SensorFragment : BaseFragment(),
                         mProximity,
                         SensorManager.SENSOR_DELAY_NORMAL
                     )
-                } else
+                } else {
+                    turnOff()
                     sensorManager?.unregisterListener(this)
+                }
             } else
                 Toast.makeText(
                     requireContext(),
@@ -112,6 +117,7 @@ class SensorFragment : BaseFragment(),
             }
             Sensor.TYPE_LIGHT ->{
                 if ( event.values[0] <= sensorSensitivityLight) {
+                    Log.d("TAG", "onSensorChanged: ${event.values[0] }")
                     turnOn()
                 } else {
                     turnOff()

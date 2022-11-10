@@ -12,6 +12,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="ltr"
     tools:context=".MainFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,34 +52,37 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_game"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/btn_shape"
         android:text="Simple Game"
+        android:layout_margin="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_step_counter"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_shape"
         android:text="Step Calculator"
+        android:layout_margin="24dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_game"
         app:layout_constraintStart_toStartOf="@+id/btn_game"
         app:layout_constraintTop_toBottomOf="@+id/btn_game" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_speedometer"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/btn_shape"
         android:text="Speedometer"
+        android:layout_margin="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_game"
         app:layout_constraintStart_toStartOf="@+id/btn_game"
