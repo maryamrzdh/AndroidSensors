@@ -48,4 +48,7 @@ dependencies {
     def nav_version_ktx = "2.6.0-alpha03"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version_ktx"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version_ktx"
+
+    implementation("org.greenrobot:eventbus:3.3.1")
+
 }
