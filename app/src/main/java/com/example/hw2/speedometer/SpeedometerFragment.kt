@@ -14,9 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hw2.BaseFragment
 import com.example.hw2.R
 import com.github.anastr.speedviewlib.SpeedView
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class SpeedometerFragment : BaseFragment() {
@@ -95,12 +92,17 @@ class SpeedometerFragment : BaseFragment() {
             }
         }
 
+        lifecycleScope.launch{
+            viewModel.average.collect {
+                tvAverage.text = (it)
+            }
+        }
+
         lifecycleScope.launch {
             viewModel.time.collect {
                 tvTime.text = (it)
             }
         }
-
 
         lifecycleScope.launch {
             viewModel.accuracy.collect {

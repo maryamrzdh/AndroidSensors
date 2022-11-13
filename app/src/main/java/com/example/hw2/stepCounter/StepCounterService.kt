@@ -105,9 +105,9 @@ class StepCounterService : Service() ,SensorEventListener {
             val channel = NotificationChannel(channelId, channelId, NotificationManager.IMPORTANCE_LOW)
 
             builder = Notification.Builder(this,channelId)
-                .setContentTitle("service enable")
+                .setContentTitle("your steps counts is ...")
                 .setContentText("service is running")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
 
             notificationManager.createNotificationChannel(channel)
 
@@ -116,9 +116,9 @@ class StepCounterService : Service() ,SensorEventListener {
         }else{
 
             builderCompat = NotificationCompat.Builder(this,channelId)
-                .setContentTitle("service enable")
+                .setContentTitle("your steps counts is ...")
                 .setContentText("service is running")
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
 
 //            notificationManager.notify(notificationId, builderCompat.build())
 
@@ -130,11 +130,22 @@ class StepCounterService : Service() ,SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent?) {
         if(running){
+
+
             totalSteps = event!!.values[0]
+
+
+            //As you can see, while the sensor is activated, the value will keep increasing
+            // without resetting to zero until the system is rebooted.
 
             // Current steps are calculated by taking the difference of total steps
             // and previous steps
-            val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
+
+            var currentSteps = 0
+            if (previousTotalSteps == 0f)
+                previousTotalSteps = totalSteps
+
+                currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
 
             //todo needed delay
             scope.launch {

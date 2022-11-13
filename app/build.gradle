@@ -18,10 +18,27 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+//        getByName(BuildTypes.DEBUG) {
+//            keyAlias = "bulletin_alias"
+//            keyPassword = "bulletin_alias_pass_123"
+//            storeFile = file("$rootDir\\key\\bulletin_sign_key.jks")
+//            storePassword = "bulletin_pass_123"
+//        }
+        release {
+            keyAlias  "key0"
+            keyPassword  "123456"
+            storeFile  file("$rootDir\\key\\key.jks")
+            storePassword  "123456"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig  signingConfigs.release
+
         }
     }
     compileOptions {
