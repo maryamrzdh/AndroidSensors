@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.hw2.BaseFragment
 import com.example.hw2.R
+import com.github.anastr.speedviewlib.SpeedView
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -25,6 +27,7 @@ class SpeedometerFragment : BaseFragment() {
     private lateinit var tvDistance :TextView
     private lateinit var tvTime :TextView
     private lateinit var tvAccuracy :TextView
+    private lateinit var speedView :SpeedView
     private lateinit var viewModel: SpeedometerViewModel
 
     override fun onCreateView(
@@ -45,16 +48,19 @@ class SpeedometerFragment : BaseFragment() {
         tvTime = view.findViewById(R.id.tv_time)
         tvAccuracy = view.findViewById(R.id.tv_accuracy)
 
+        speedView = view.findViewById(R.id.speedView)
+
         val btnStart = view.findViewById<Button>(R.id.btn_start)
         val btnEnd = view.findViewById<Button>(R.id.btn_end)
 
         btnStart.setOnClickListener {
-            btnStart.visibility = View.GONE
-            btnEnd.visibility = View.VISIBLE
+
 
             if (sensor != null) {
-                // Rate suitable for the user interface
-//                sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI)
+
+                btnStart.visibility = View.GONE
+                btnEnd.visibility = View.VISIBLE
+                //                sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_UI)
                 sensorManager?.registerListener(viewModel, sensor, SensorManager.SENSOR_DELAY_NORMAL)
             } else {
                 // This will give a toast message to the user if there is no sensor in the device
@@ -78,7 +84,8 @@ class SpeedometerFragment : BaseFragment() {
 
         lifecycleScope.launch{
             viewModel.currentSpeed.collect {
-                tvSpeed.text = (it)
+//                tvSpeed.text = (it.toString())
+                speedView.speedTo(it)
             }
         }
 
@@ -91,6 +98,13 @@ class SpeedometerFragment : BaseFragment() {
         lifecycleScope.launch {
             viewModel.time.collect {
                 tvTime.text = (it)
+            }
+        }
+
+
+        lifecycleScope.launch {
+            viewModel.accuracy.collect {
+                tvAccuracy.text = (it)
             }
         }
     }

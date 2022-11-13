@@ -12,6 +12,14 @@
     android:layoutDirection="ltr"
     tools:context=".speedometer.SpeedometerFragment">
 
+    <com.github.anastr.speedviewlib.SpeedView
+        android:id="@+id/speedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_speed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -20,13 +28,14 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_speed">
+        app:layout_constraintTop_toBottomOf="@+id/speedView">
 
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textColor="@color/black"
             android:text="@string/max_speed" />
 
         <TextView
@@ -63,6 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textColor="@color/black"
             android:text="@string/average_speed" />
 
         <TextView
@@ -88,6 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textColor="@color/black"
             android:text="@string/distance" />
 
         <TextView
@@ -113,6 +124,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textColor="@color/black"
             android:text="@string/time" />
 
         <TextView
@@ -139,6 +151,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:textColor="@color/black"
             android:text="@string/accuracy" />
 
         <TextView
@@ -163,6 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/start"
+
             />
 
         <Button
