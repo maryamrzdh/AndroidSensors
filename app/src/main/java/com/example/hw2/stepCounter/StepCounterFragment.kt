@@ -39,8 +39,6 @@ class StepCounterFragment : BaseFragment() {
             startService()
 
         }
-
-//        loadData()
         resetSteps()
 
         return view
@@ -72,7 +70,7 @@ class StepCounterFragment : BaseFragment() {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: StepEvent?) {
         tvStepsTaken.text = event?.value.toString()
     }
@@ -92,4 +90,10 @@ class StepCounterFragment : BaseFragment() {
         val serviceIntent = Intent(requireActivity(), StepCounterService::class.java)
         requireActivity().stopService(serviceIntent)
     }
+
+    override fun onDetach() {
+        super.onDetach()
+        stopMyService()
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.hw2.stepCounter
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -15,7 +16,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.example.hw2.App
 import com.example.hw2.R
 import kotlinx.coroutines.*
@@ -47,11 +47,14 @@ class StepCounterService : Service() ,SensorEventListener {
     // steps and it has also been given the value of 0 float
     private var previousTotalSteps = 0f
 
+    private val notificationId = 1001
+
+
     private val channelId = "Notification from Service"
 
-    private lateinit var builder : NotificationCompat.Builder
+    private lateinit var builder : Notification.Builder
+    private lateinit var builderCompat : NotificationCompat.Builder
     private lateinit var notificationManager : NotificationManager
-    private lateinit var notificationManagerCompat : NotificationManagerCompat
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
@@ -66,37 +69,63 @@ class StepCounterService : Service() ,SensorEventListener {
 
         running = true
 
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        showNotification()
+//        scope.launch {
+//            var cnt = 100
+//            while (cnt>0 ){
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                    builder.setContentText(cnt.toString())
+//                    notificationManager.notify(notificationId, builder.build())
+//                }
+//                else{
+//                    builderCompat.setContentText(cnt.toString())
+//                    notificationManager.notify(notificationId, builderCompat.build())
+//                }
+//
+//
+//                cnt -=1
+//                delay(2000)
+//            }
+//        }
 
-        // Returns the number of steps taken by the user since the last reboot while activated
-        // This sensor requires permission android.permission.ACTIVITY_RECOGNITION.
-        // So don't forget to add the following permission in AndroidManifest.xml present in manifest folder of the app.
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, channelId, NotificationManager.IMPORTANCE_LOW)
-            notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }else{
-            notificationManagerCompat = NotificationManagerCompat.from(applicationContext)
-            builder = NotificationCompat.Builder(this,channelId)
-                .setContentTitle("service enable")
-                .setContentText("service is running")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-//            startForeground(1001,builder.build())
-        }
-
-
-
-        if (stepSensor == null) {
-            // This will give a toast message to the user if there is no sensor in the device
+        if (stepSensor == null)
             Toast.makeText(this, "No sensor detected on this device", Toast.LENGTH_SHORT).show()
-        } else {
-            // Rate suitable for the user interface
+        else
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-        }
 
 
         return START_NOT_STICKY
+    }
+
+    private fun showNotification(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, channelId, NotificationManager.IMPORTANCE_LOW)
+
+            builder = Notification.Builder(this,channelId)
+                .setContentTitle("service enable")
+                .setContentText("service is running")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+
+            notificationManager.createNotificationChannel(channel)
+
+//            notificationManager.notify(notificationId, builder.build())
+
+        }else{
+
+            builderCompat = NotificationCompat.Builder(this,channelId)
+                .setContentTitle("service enable")
+                .setContentText("service is running")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+
+//            notificationManager.notify(notificationId, builderCompat.build())
+
+        }
+
+//        builderCompat.setContentText("currentSteps".toString())
+
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -107,12 +136,18 @@ class StepCounterService : Service() ,SensorEventListener {
             // and previous steps
             val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
 
+            //todo needed delay
             scope.launch {
                 EventBus.getDefault().post(StepEvent("$currentSteps"))
 
-                builder.setContentText(currentSteps.toString())
-                notificationManagerCompat.notify(1001, builder.build())
-                delay(5000)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    builder.setContentText("$currentSteps")
+                    notificationManager.notify(notificationId, builder.build())
+                }
+                else{
+                    builderCompat.setContentText("$currentSteps")
+                    notificationManager.notify(notificationId, builderCompat.build())
+                }
             }
         }
 
@@ -151,3 +186,13 @@ class StepCounterService : Service() ,SensorEventListener {
         previousTotalSteps = savedNumber
     }
 }
+
+
+//        scope.launch {
+//            var cnt = 100
+//            while (cnt>0 ){
+//                EventBus.getDefault().post(StepEvent(cnt.toString()))
+//                cnt -=1
+//                delay(1000)
+//            }
+//        }
