@@ -5,8 +5,9 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.os.SystemClock
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.max
@@ -22,20 +23,20 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
     private var _currentSpeed = MutableStateFlow(0f)
     var currentSpeed = _currentSpeed.asStateFlow()
 
-    private var _maxSpeed = MutableStateFlow("")
-    var maxSpeedState = _maxSpeed.asStateFlow()
+    private var _maxSpeed = MutableSharedFlow<String>(replay = 1)
+    var maxSpeedState = _maxSpeed.asSharedFlow()
 
-    private var _average = MutableStateFlow("")
-    var average = _average.asStateFlow()
+    private var _average = MutableSharedFlow<String>(replay = 1)
+    var average = _average.asSharedFlow()
 
     private var _time = MutableStateFlow("")
     var time = _time.asStateFlow()
 
-    private var _accuracy = MutableStateFlow("")
-    var accuracy = _accuracy.asStateFlow()
+    private var _accuracy = MutableSharedFlow<String>(replay = 1)
+    var accuracy = _accuracy.asSharedFlow()
 
-    private var _distance = MutableStateFlow("")
-    var distance = _distance.asStateFlow()
+    private var _distance = MutableSharedFlow<String>(replay = 1)
+    var distance = _distance.asSharedFlow()
 
     private var _lastTick = System.currentTimeMillis()
     private var currentTimeMillis = System.currentTimeMillis()
@@ -72,21 +73,28 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 
                 _currentSpeed.value = speedKM
 
-                _maxSpeed.value =maxSpeed.toString()
+                val max =maxSpeed.toString()
 
-                _average.value = (sum/count).toString()
+                val avg = (sum/count).toString()
 
                 val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.getDefault())
                 val millis = System.currentTimeMillis() + (event.timestamp - SystemClock.elapsedRealtimeNanos()) / 1000000L
 
                 _time.value = printDifference( sdf.parse(sdf.format(Date(currentTimeMillis))),sdf.parse(sdf.format(Date(millis))))
 
-                _accuracy.value = event.accuracy.toString()
+                val acc = event.accuracy.toString()
 
-//                 mAccel = mAccel * 0.9f + motion.toFloat() * 0.1f
+                //              mAccel = mAccel * 0.9f + motion.toFloat() * 0.1f
+                mAccel += ((sum/count) * hourLeft ) / 60
 
-                 mAccel += ((sum/count) * hourLeft ) / 60
-                _distance.value = "$mAccel km"
+                viewModelScope.launch {
+                    _accuracy.emit(acc)
+                    _average.emit(avg)
+                    _maxSpeed.emit(max)
+                    _distance.emit("$mAccel km")
+                }
+
+
             }
         }
     }

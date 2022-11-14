@@ -14,6 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hw2.BaseFragment
 import com.example.hw2.R
 import com.github.anastr.speedviewlib.SpeedView
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SpeedometerFragment : BaseFragment() {
@@ -26,6 +28,8 @@ class SpeedometerFragment : BaseFragment() {
     private lateinit var tvAccuracy :TextView
     private lateinit var speedView :SpeedView
     private lateinit var viewModel: SpeedometerViewModel
+
+    lateinit var job : Job
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +83,7 @@ class SpeedometerFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch{
+          lifecycleScope.launch{
             viewModel.currentSpeed.collect {
 //                tvSpeed.text = (it.toString())
                 speedView.speedTo(it)
@@ -118,7 +122,6 @@ class SpeedometerFragment : BaseFragment() {
     }
 
     private fun clearForm(){
-//        tvSpeed.text = ""
         tvMaxSpeed.text = ""
         tvAverage.text = ""
         tvDistance.text = ""
