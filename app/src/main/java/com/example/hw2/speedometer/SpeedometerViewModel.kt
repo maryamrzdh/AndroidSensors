@@ -17,7 +17,8 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 
     private var sum = 0f
     private var count = 0
-
+    var mAccel: Float = 0f
+    var hourLeft = 0L
     private var _currentSpeed = MutableStateFlow(0f)
     var currentSpeed = _currentSpeed.asStateFlow()
 
@@ -82,7 +83,10 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 
                 _accuracy.value = event.accuracy.toString()
 
-                _distance.value = "0"
+//                 mAccel = mAccel * 0.9f + motion.toFloat() * 0.1f
+
+                 mAccel += ((sum/count) * hourLeft ) / 60
+                _distance.value = "$mAccel km"
             }
         }
     }
@@ -116,6 +120,7 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
             "%d days, %d hours, %d minutes, %d seconds%n",
             elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds
         )
+        hourLeft = (elapsedHours *60) + elapsedMinutes
         return "$elapsedHours : $elapsedMinutes : $elapsedSeconds"
     }
 }
