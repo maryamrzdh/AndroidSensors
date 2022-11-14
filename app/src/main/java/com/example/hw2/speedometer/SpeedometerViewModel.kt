@@ -3,6 +3,7 @@ package com.example.hw2.speedometer
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.os.SystemClock
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -10,16 +11,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.max
 import kotlin.math.pow
-import kotlin.math.roundToLong
 import kotlin.math.sqrt
 
 class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 
     private var sum = 0f
     private var count = 0
-    private var sensorTimeReference = 0L
-    private var myTimeReference  = 0L
-
 
     private var _currentSpeed = MutableStateFlow(0f)
     var currentSpeed = _currentSpeed.asStateFlow()
@@ -63,7 +60,8 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 //                val dT: Long = (event.timestamp ) / 1000000000.0f
                 val dT: Long = (event.timestamp ) / 1000000L
 
-                val timeInMillis: Long = (System.currentTimeMillis() + (event.timestamp - System.nanoTime()) / 1000000L)
+//                val timeInMillis: Long = (System.currentTimeMillis() + (event.timestamp - System.nanoTime()) / 1000000L)
+
 
                 maxSpeed = max(maxSpeed , speedKM)
                 sum += speedKM
@@ -74,23 +72,12 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 
                 _average.value = (sum/count).toString()
 
-//                val a  = (currentTimeMillis-dT)
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss", Locale.getDefault())
+                val millis = System.currentTimeMillis() + (event.timestamp - SystemClock.elapsedRealtimeNanos()) / 1000000L
 
-                // set reference times
-                if(sensorTimeReference == 0L && myTimeReference == 0L) {
-                    sensorTimeReference = event.timestamp
-                    myTimeReference = System.currentTimeMillis()
-                }
-                // set event timestamp to current time in milliseconds
-//                val a  = ((event.timestamp - sensorTimeReference) / 1000000.0).roundToLong()
-                val a =
-                        Math.round((event.timestamp - sensorTimeReference) / 1000000.0)
-                // some code...
-
-                _time.value = getDate(a)
+                _time.value = printDifference( sdf.parse(sdf.format(Date(currentTimeMillis))),sdf.parse(sdf.format(Date(millis))))
 
                 _accuracy.value = event.accuracy.toString()
-
             }
         }
     }
@@ -104,11 +91,26 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
 //        return df.format(calendar)
 //    }
 
-    fun getDate(timestamp: Long) :String {
-//        val calendar = Calendar.getInstance()
-//        val tz = TimeZone.getDefault()
-//        calendar.add(Calendar.MILLISECOND, tz.getOffset(calendar.timeInMillis))
-        val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        return sdf.format(timestamp)
+
+    private fun printDifference(startDate: Date, endDate: Date):String {
+        //milliseconds
+        var different = endDate.time - startDate.time
+
+        val secondsInMilli: Long = 1000
+        val minutesInMilli = secondsInMilli * 60
+        val hoursInMilli = minutesInMilli * 60
+        val daysInMilli = hoursInMilli * 24
+        val elapsedDays = different / daysInMilli
+        different %= daysInMilli
+        val elapsedHours = different / hoursInMilli
+        different %= hoursInMilli
+        val elapsedMinutes = different / minutesInMilli
+        different %= minutesInMilli
+        val elapsedSeconds = different / secondsInMilli
+        System.out.printf(
+            "%d days, %d hours, %d minutes, %d seconds%n",
+            elapsedDays, elapsedHours, elapsedMinutes, elapsedSeconds
+        )
+        return "$elapsedHours : $elapsedMinutes : $elapsedSeconds"
     }
 }

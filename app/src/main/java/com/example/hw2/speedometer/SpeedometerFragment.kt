@@ -38,7 +38,7 @@ class SpeedometerFragment : BaseFragment() {
 
         getSensor(Sensor.TYPE_LINEAR_ACCELERATION)
 
-        tvSpeed = view.findViewById(R.id.tv_speed)
+//        tvSpeed = view.findViewById(R.id.tv_speed)
         tvMaxSpeed = view.findViewById(R.id.tv_max_speed)
         tvAverage = view.findViewById(R.id.tv_average)
         tvDistance = view.findViewById(R.id.tv_distance)
@@ -112,7 +112,7 @@ class SpeedometerFragment : BaseFragment() {
     }
 
     private fun clearForm(){
-        tvSpeed.text = ""
+//        tvSpeed.text = ""
         tvMaxSpeed.text = ""
         tvAverage.text = ""
         tvDistance.text = ""
