@@ -105,6 +105,12 @@ class SpeedometerFragment : BaseFragment() {
         }
 
         lifecycleScope.launch {
+            viewModel.distance.collect {
+                tvDistance.text = (it)
+            }
+        }
+
+        lifecycleScope.launch {
             viewModel.accuracy.collect {
                 tvAccuracy.text = (it)
             }

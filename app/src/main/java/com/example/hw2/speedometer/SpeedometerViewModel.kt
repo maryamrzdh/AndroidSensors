@@ -33,6 +33,9 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
     private var _accuracy = MutableStateFlow("")
     var accuracy = _accuracy.asStateFlow()
 
+    private var _distance = MutableStateFlow("")
+    var distance = _distance.asStateFlow()
+
     private var _lastTick = System.currentTimeMillis()
     private var currentTimeMillis = System.currentTimeMillis()
     private val _samplePeriod = 15
@@ -78,6 +81,8 @@ class SpeedometerViewModel:ViewModel() ,SensorEventListener {
                 _time.value = printDifference( sdf.parse(sdf.format(Date(currentTimeMillis))),sdf.parse(sdf.format(Date(millis))))
 
                 _accuracy.value = event.accuracy.toString()
+
+                _distance.value = "0"
             }
         }
     }
