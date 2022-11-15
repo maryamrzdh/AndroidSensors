@@ -14,13 +14,10 @@ import androidx.lifecycle.lifecycleScope
 import com.example.hw2.BaseFragment
 import com.example.hw2.R
 import com.github.anastr.speedviewlib.SpeedView
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SpeedometerFragment : BaseFragment() {
 
-    private lateinit var tvSpeed :TextView
     private lateinit var tvMaxSpeed :TextView
     private lateinit var tvAverage :TextView
     private lateinit var tvDistance :TextView
@@ -28,8 +25,6 @@ class SpeedometerFragment : BaseFragment() {
     private lateinit var tvAccuracy :TextView
     private lateinit var speedView :SpeedView
     private lateinit var viewModel: SpeedometerViewModel
-
-    lateinit var job : Job
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +37,6 @@ class SpeedometerFragment : BaseFragment() {
 
         getSensor(Sensor.TYPE_LINEAR_ACCELERATION)
 
-//        tvSpeed = view.findViewById(R.id.tv_speed)
         tvMaxSpeed = view.findViewById(R.id.tv_max_speed)
         tvAverage = view.findViewById(R.id.tv_average)
         tvDistance = view.findViewById(R.id.tv_distance)
@@ -85,7 +79,6 @@ class SpeedometerFragment : BaseFragment() {
 
           lifecycleScope.launch{
             viewModel.currentSpeed.collect {
-//                tvSpeed.text = (it.toString())
                 speedView.speedTo(it)
             }
         }
@@ -129,15 +122,8 @@ class SpeedometerFragment : BaseFragment() {
         tvAccuracy.text = ""
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        if (sensor != null )
-//            sensorManager?.registerListener(viewModel, sensor, SensorManager.SENSOR_DELAY_NORMAL)
-//    }
-
     override fun onDetach() {
         super.onDetach()
         sensorManager?.unregisterListener(viewModel)
     }
-
 }

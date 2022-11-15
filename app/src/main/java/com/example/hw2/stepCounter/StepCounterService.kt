@@ -17,7 +17,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.hw2.App
-import com.example.hw2.R
 import kotlinx.coroutines.*
 import org.greenrobot.eventbus.EventBus
 
@@ -62,7 +61,6 @@ class StepCounterService : Service() ,SensorEventListener {
         // Adding a context of SENSOR_SERVICE aas Sensor Manager
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         loadData()
-
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -71,23 +69,6 @@ class StepCounterService : Service() ,SensorEventListener {
 
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         showNotification()
-//        scope.launch {
-//            var cnt = 100
-//            while (cnt>0 ){
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                    builder.setContentText(cnt.toString())
-//                    notificationManager.notify(notificationId, builder.build())
-//                }
-//                else{
-//                    builderCompat.setContentText(cnt.toString())
-//                    notificationManager.notify(notificationId, builderCompat.build())
-//                }
-//
-//
-//                cnt -=1
-//                delay(2000)
-//            }
-//        }
 
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
@@ -95,7 +76,6 @@ class StepCounterService : Service() ,SensorEventListener {
             Toast.makeText(this, "No sensor detected on this device", Toast.LENGTH_SHORT).show()
         else
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
-
 
         return START_NOT_STICKY
     }
@@ -111,29 +91,19 @@ class StepCounterService : Service() ,SensorEventListener {
 
             notificationManager.createNotificationChannel(channel)
 
-//            notificationManager.notify(notificationId, builder.build())
-
         }else{
-
             builderCompat = NotificationCompat.Builder(this,channelId)
                 .setContentTitle("your steps counts is ...")
                 .setContentText("service is running")
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
-
-//            notificationManager.notify(notificationId, builderCompat.build())
-
         }
-
-//        builderCompat.setContentText("currentSteps".toString())
 
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
         if(running){
 
-
             totalSteps = event!!.values[0]
-
 
             //As you can see, while the sensor is activated, the value will keep increasing
             // without resetting to zero until the system is rebooted.
@@ -147,7 +117,6 @@ class StepCounterService : Service() ,SensorEventListener {
 
                 currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
 
-            //todo needed delay
             scope.launch {
                 EventBus.getDefault().post(StepEvent("$currentSteps"))
 
@@ -197,13 +166,3 @@ class StepCounterService : Service() ,SensorEventListener {
         previousTotalSteps = savedNumber
     }
 }
-
-
-//        scope.launch {
-//            var cnt = 100
-//            while (cnt>0 ){
-//                EventBus.getDefault().post(StepEvent(cnt.toString()))
-//                cnt -=1
-//                delay(1000)
-//            }
-//        }
