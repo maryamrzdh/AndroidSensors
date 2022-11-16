@@ -14,7 +14,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-
 class StepCounterFragment : BaseFragment() {
 
     private lateinit var btnEnd : Button
@@ -53,15 +52,9 @@ class StepCounterFragment : BaseFragment() {
             btnEnd.visibility = View.GONE
             btnStart.visibility = View.VISIBLE
 
-            //todo
-//            previousTotalSteps = totalSteps
-
             // When the user will click long tap on the screen,
             // the steps will be reset to 0
             tvStepsTaken.text = 0.toString()
-
-            // This will save the data
-//            saveData()
 
             EventBus.getDefault().unregister(this)
             stopMyService()
@@ -76,14 +69,8 @@ class StepCounterFragment : BaseFragment() {
     }
 
     private fun startService() {
-//        val input: String = tvStepsTaken.text.toString()
-//        val serviceIntent = Intent(requireActivity(), StepCounterService::class.java)
-//        serviceIntent.putExtra("inputExtra", "your step count is $input")
-
         val intentService = Intent(requireContext() , StepCounterService::class.java)
         requireActivity().startService(intentService)
-//        requireActivity().bindService(intentService,Context.BIND_AUTO_CREATE)
-//        ContextCompat.startForegroundService(requireContext(), serviceIntent)
     }
 
     private fun stopMyService() {
