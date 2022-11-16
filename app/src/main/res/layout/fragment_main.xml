@@ -28,24 +28,34 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="80dp"
-            android:text="By: Sara Amiri"
+            android:text="Sara Amiri"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Seyed MohammadReza Esmaeili Taba"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_sensors"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:background="@drawable/btn_shape"
             android:text="Sensors"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textView"
             app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
